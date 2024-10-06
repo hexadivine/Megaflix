@@ -47,16 +47,56 @@
     position: absolute;
     bottom: 1rem;
     width: 100%;
+    /* background-color: green; */
     /* background-color: red; */
 }
 
 .thumbnail-heading {
-    font-size: 5rem;
+    font-size: 3rem;
     white-space: nowrap;
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
     margin-left: 6rem;
-    margin-top: 10rem;
+    /* margin-top: 10rem; */
     margin-right: 10rem;
+}
+
+.thumbnail-heading ul {
+    overflow: scroll;
+    height: 23rem;
+    width: 30rem;
+    scrollbar-width: none;
+}
+
+.thumbnail-heading ul::-webkit-scrollbar {
+    display: none;
+}
+
+.thumbnail-heading ul li {
+    list-style: none;
+    cursor: pointer;
+    color: #aaaaaaaa;
+    text-align: center;
+    /* background: #ff0000; */
+}
+
+.thumbnail-heading .active-heading {
+    color: white;
+    position: relative;
+    top: 50%
+}
+
+.thumbnail-heading li:not(.active-heading) {
+    display: none;
+    font-size: 2.5rem;
+    translate: all;
+}
+
+.active-heading:hover~li:not(.active-heading),
+.thumbnail-heading-list li:hover~li,
+.thumbnail-heading-list:hover li {
+    display: block;
+    position: relative;
+    top: 0
 }
 
 .thumbnail-images {
@@ -64,8 +104,8 @@
     gap: 1rem;
     height: 33rem;
     scroll-behavior: smooth;
-    position: absolute;
-    left: 50%;
+    font-size: 5rem;
+    scrollbar-width: none;
 }
 
 .thumbnail-images::-webkit-scrollbar {
@@ -112,6 +152,7 @@
         top: -10rem;
         transform: rotateY(-360deg);
     }
+
     to {
         position: relative;
         top: 0;

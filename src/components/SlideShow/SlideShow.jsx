@@ -4,8 +4,20 @@ import cards_data from "./../../assets/cards/Cards_data.js";
 
 function SlideShow() {
     const [activeMovie, setActiveMovie] = useState(0);
+    const [movieCategory, setMovieCategory] = useState("now_playing");
     const [movies, setMovies] = useState([]);
     const thumbnailRef = useRef(null);
+
+    const categories = [
+        { name: "Now Playing", tag: "now_playing" },
+        { name: "Popular", tag: "popular" },
+        { name: "Top Rated", tag: "top_rated" },
+        { name: "Upcoming", tag: "upcoming" },
+        { name: "Liked", tag: "upcoming" },
+        { name: "Recommendations", tag: "upcoming" },
+        { name: "Liked by Friends", tag: "upcoming" },
+        { name: "WatchList", tag: "upcoming" },
+    ];
 
     useEffect(() => {
         const options = {
@@ -15,14 +27,14 @@ function SlideShow() {
                 Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
             },
         };
-        fetch("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", options)
+        fetch(`https://api.themoviedb.org/3/movie/${movieCategory}?language=en-US&page=1`, options)
             .then((response) => response.json())
             .then((response) => {
                 console.log(response);
                 setMovies(response.results);
             })
             .catch((err) => console.error(err));
-    }, []);
+    }, [movieCategory]);
 
     useEffect(() => {
         const showMoviesInterval = setInterval(() => {
@@ -32,9 +44,6 @@ function SlideShow() {
                 return newPos;
             });
         }, 10000);
-
-        // console.log("1");
-        // console.log(movies);
 
         return () => clearInterval(showMoviesInterval);
     }, [movies]);
@@ -61,7 +70,19 @@ function SlideShow() {
                 ))}
             </div>
             <div className="thumbnail">
-                <h1 className="thumbnail-heading">Now Playing...</h1>
+                <h1 className="thumbnail-heading">
+                    <ul className="thumbnail-heading-list">
+                        {categories.map((category, index) => (
+                            <li
+                                key={index}
+                                onClick={() => setMovieCategory(category.tag)}
+                                className={category.tag === movieCategory ? "active-heading" : ""}
+                            >
+                                {category.name}
+                            </li>
+                        ))}
+                    </ul>
+                </h1>
                 <div className="thumbnail-images" ref={thumbnailRef}>
                     {movies.map((movie, index) => (
                         <img
