@@ -1,0 +1,50 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    margin-top: 1.8rem;
+    gap: 2rem;
+    z-index: 10;
+    color: #cccccccc;
+}
+
+nav ul:first-child {
+    margin-left: 6rem;
+}
+
+nav ul:last-child {
+    margin-right: 6rem;
+}
+
+nav ul:last-child li:last-child {
+    display: flex;
+    gap: 0.5rem
+}
+
+nav li {
+    list-style: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+nav li:hover {
+    color: white
+}
+
+nav li:active {
+    text-decoration: underline;
+}
+
+
+nav .logo {
+    width: 9.2rem;
+    height: 2.5rem;
+    margin-right: 2.5rem;
+}
