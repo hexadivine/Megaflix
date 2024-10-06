@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./SlideShow.css";
 import cards_data from "./../../assets/cards/Cards_data.js";
 
 function SlideShow() {
     const [activeMovie, setActiveMovie] = useState(0);
     const [movies, setMovies] = useState([]);
+    const thumbnailRef = useRef(null);
 
     useEffect(() => {
         const options = {
@@ -25,7 +26,11 @@ function SlideShow() {
 
     useEffect(() => {
         const showMoviesInterval = setInterval(() => {
-            setActiveMovie((prev) => (prev < movies.length - 1 ? prev + 1 : 0));
+            setActiveMovie((prev) => {
+                const newPos = prev < movies.length - 1 ? prev + 1 : 0;
+                thumbnailRef.current.scrollLeft = 160 * newPos;
+                return newPos;
+            });
         }, 10000);
 
         // console.log("1");
@@ -35,7 +40,7 @@ function SlideShow() {
     }, [movies]);
 
     useEffect(() => {
-        console.log(activeMovie);
+        thumbnailRef.current.scrollLeft = 160 * activeMovie;
     }, [activeMovie]);
 
     return (
@@ -57,14 +62,18 @@ function SlideShow() {
             </div>
             <div className="thumbnail">
                 <h1 className="thumbnail-heading">Now Playing...</h1>
-                {movies.map((movie, index) => (
-                    <img
-                        src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
-                        key={index}
-                        onClick={() => setActiveMovie(index)}
-                        className={activeMovie == index ? "active-thumbnail" : "inactive-thumbnail"}
-                    />
-                ))}
+                <div className="thumbnail-images" ref={thumbnailRef}>
+                    {movies.map((movie, index) => (
+                        <img
+                            src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
+                            key={index}
+                            onClick={() => setActiveMovie(index)}
+                            className={
+                                activeMovie == index ? "active-thumbnail" : "inactive-thumbnail"
+                            }
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );
