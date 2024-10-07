@@ -2,14 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import "./SlideShow.css";
 
 function SlideShow({ categories, posters }) {
+    console.log(Object.keys(categories));
     const [activePoster, setActivePoster] = useState(0);
-    const [posterCategory, setPosterCategory] = useState("now_playing");
+    const [posterCategory, setPosterCategory] = useState(categories[0].tag);
+
     const thumbnailRef = useRef(null);
+    const prevPosterCategory = useRef(null);
 
     useEffect(() => {
         const showPostersInterval = setInterval(() => {
             setActivePoster((prev) => {
-                const newPos = prev < posters.length - 1 ? prev + 1 : 0;
+                const newPos = prev < posters[posterCategory].length - 1 ? prev + 1 : 0;
                 thumbnailRef.current.scrollLeft = 160 * newPos;
                 return newPos;
             });
@@ -20,6 +23,22 @@ function SlideShow({ categories, posters }) {
 
     useEffect(() => {
         thumbnailRef.current.scrollLeft = 160 * activePoster;
+
+        // below not working
+
+        if (activePoster >= posters[posterCategory].length - 1)
+            prevPosterCategory.current = posterCategory;
+
+        console.log(prevPosterCategory.current);
+
+        if (activePoster === 0 && prevPosterCategory.current == posterCategory) {
+            console.log(55);
+            const nextCategoryIndex =
+                (categories.findIndex((ele) => ele.tag === posterCategory) + 1) % categories.length;
+            // console.log(Object.keys(categories).findIndex((ele) => ele.tag === posterCategory));
+            setPosterCategory(categories[nextCategoryIndex].tag);
+            console.log(categories[nextCategoryIndex].tag);
+        }
     }, [activePoster]);
 
     return (
