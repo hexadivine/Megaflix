@@ -5,7 +5,8 @@ nav {
     z-index: 10;
 }
 
-nav ul {
+nav .nav-left,
+nav .nav-right {
     display: flex;
     align-items: center;
     margin-top: 1.8rem;
@@ -38,13 +39,49 @@ nav li:hover {
     color: white
 }
 
-nav li:active {
-    text-decoration: underline;
+nav li a {
+    all: unset;
 }
 
 
-nav .logo {
+nav .logo-icon {
     width: 9.2rem;
     height: 2.5rem;
     margin-right: 2.5rem;
+}
+
+/* Make responsive */
+
+.browse {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .nav-left .nav-list {
+        display: none;
+    }
+
+    .nav-left .logo,
+    .nav-left .browse {
+        display: block;
+    }
+
+    .nav-left .browse img {
+        margin-left: 1rem;
+    }
+
+    .browse {
+        position: relative;
+    }
+
+    .dropdown {
+        display: none;
+        position: absolute;
+        top: 2rem;
+    }
+
+    .browse:hover > .dropdown {
+        display: block !important;
+    } 
+
 }

@@ -1,71 +1,40 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./SlideShow.css";
-import cards_data from "./../../assets/cards/Cards_data.js";
 
-function SlideShow() {
-    const [activeMovie, setActiveMovie] = useState(0);
-    const [movieCategory, setMovieCategory] = useState("now_playing");
-    const [movies, setMovies] = useState([]);
+function SlideShow({ categories, posters }) {
+    const [activePoster, setActivePoster] = useState(0);
+    const [posterCategory, setPosterCategory] = useState("now_playing");
     const thumbnailRef = useRef(null);
 
-    const categories = [
-        { name: "Now Playing", tag: "now_playing" },
-        { name: "Popular", tag: "popular" },
-        { name: "Top Rated", tag: "top_rated" },
-        { name: "Upcoming", tag: "upcoming" },
-        { name: "Liked", tag: "upcoming" },
-        { name: "Recommendations", tag: "upcoming" },
-        { name: "Liked by Friends", tag: "upcoming" },
-        { name: "WatchList", tag: "upcoming" },
-    ];
-
     useEffect(() => {
-        const options = {
-            method: "GET",
-            headers: {
-                accept: "application/json",
-                Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
-            },
-        };
-        fetch(`https://api.themoviedb.org/3/movie/${movieCategory}?language=en-US&page=1`, options)
-            .then((response) => response.json())
-            .then((response) => {
-                console.log(response);
-                setMovies(response.results);
-                setActiveMovie(0);
-            })
-            .catch((err) => console.error(err));
-    }, [movieCategory]);
-
-    useEffect(() => {
-        const showMoviesInterval = setInterval(() => {
-            setActiveMovie((prev) => {
-                const newPos = prev < movies.length - 1 ? prev + 1 : 0;
+        const showPostersInterval = setInterval(() => {
+            setActivePoster((prev) => {
+                const newPos = prev < posters.length - 1 ? prev + 1 : 0;
                 thumbnailRef.current.scrollLeft = 160 * newPos;
                 return newPos;
             });
         }, 10000);
 
-        return () => clearInterval(showMoviesInterval);
-    }, [movies]);
+        return () => clearInterval(showPostersInterval);
+    }, []);
 
     useEffect(() => {
-        thumbnailRef.current.scrollLeft = 160 * activeMovie;
-    }, [activeMovie]);
+        thumbnailRef.current.scrollLeft = 160 * activePoster;
+    }, [activePoster]);
 
     return (
         <div className="slideshow">
             <div className="hero">
-                {movies.map((movie, index) => (
-                    <div key={index} className={activeMovie === index ? "hero-item" : "hide"}>
+                {posters[posterCategory].map((poster, index) => (
+                    <div key={index} className={activePoster === index ? "hero-item" : "hide"}>
                         <div className="hero-gradient"></div>
                         <img
-                            src={"https://image.tmdb.org/t/p/original/" + movie.backdrop_path}
+                            src={"https://image.tmdb.org/t/p/original/" + poster.backdrop_path}
                             className="hero-img"
                         />
                         <div className="content">
-                            <h1 className="title">{movie.title}</h1>
-                            <p className="description">{movie.overview}</p>
+                            <h1 className="title">{poster.title}</h1>
+                            <p className="description">{poster.overview}</p>
                         </div>
                     </div>
                 ))}
@@ -76,8 +45,8 @@ function SlideShow() {
                         {categories.map((category, index) => (
                             <li
                                 key={index}
-                                onClick={() => setMovieCategory(category.tag)}
-                                className={category.tag === movieCategory ? "active-heading" : ""}
+                                onClick={() => setPosterCategory(category.tag)}
+                                className={category.tag === posterCategory ? "active-heading" : ""}
                             >
                                 {category.name}
                             </li>
@@ -85,13 +54,13 @@ function SlideShow() {
                     </ul>
                 </h1>
                 <div className="thumbnail-images" ref={thumbnailRef}>
-                    {movies.map((movie, index) => (
+                    {posters[posterCategory].map((poster, index) => (
                         <img
-                            src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
+                            src={"https://image.tmdb.org/t/p/original" + poster.poster_path}
                             key={index}
-                            onClick={() => setActiveMovie(index)}
+                            onClick={() => setActivePoster(index)}
                             className={
-                                activeMovie == index ? "active-thumbnail" : "inactive-thumbnail"
+                                activePoster == index ? "active-thumbnail" : "inactive-thumbnail"
                             }
                         />
                     ))}

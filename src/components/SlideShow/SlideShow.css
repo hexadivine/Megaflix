@@ -88,7 +88,6 @@
 .thumbnail-heading li:not(.active-heading) {
     display: none;
     font-size: 2.5rem;
-    translate: all;
 }
 
 .active-heading:hover~li:not(.active-heading),
