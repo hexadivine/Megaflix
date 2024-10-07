@@ -32,6 +32,7 @@ function SlideShow() {
             .then((response) => {
                 console.log(response);
                 setMovies(response.results);
+                setActiveMovie(0);
             })
             .catch((err) => console.error(err));
     }, [movieCategory]);
