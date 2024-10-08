@@ -56,6 +56,10 @@ nav .logo-icon {
     display: none;
 }
 
+.menu {
+    display: none;
+}
+
 @media (max-width: 1000px) {
     .nav-left .nav-list {
         display: none;
@@ -84,4 +88,15 @@ nav .logo-icon {
         display: block !important;
     } 
 
+}
+
+@media (max-width: 600px) {
+
+    .menu {
+        display: block;
+    }
+
+    .nav-left .browse {
+        display: none;
+    }
 }

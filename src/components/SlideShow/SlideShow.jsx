@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import "./SlideShow.css";
 
 function SlideShow({ categories, posters }) {
-    console.log(Object.keys(categories));
     const [activePoster, setActivePoster] = useState(0);
     const [posterCategory, setPosterCategory] = useState(categories[0].tag);
 
@@ -24,20 +23,14 @@ function SlideShow({ categories, posters }) {
     useEffect(() => {
         thumbnailRef.current.scrollLeft = 160 * activePoster;
 
-        // below not working
-
         if (activePoster >= posters[posterCategory].length - 1)
             prevPosterCategory.current = posterCategory;
-
-        console.log(prevPosterCategory.current);
+        // else prevPosterCategory.current = null;
 
         if (activePoster === 0 && prevPosterCategory.current == posterCategory) {
-            console.log(55);
             const nextCategoryIndex =
                 (categories.findIndex((ele) => ele.tag === posterCategory) + 1) % categories.length;
-            // console.log(Object.keys(categories).findIndex((ele) => ele.tag === posterCategory));
             setPosterCategory(categories[nextCategoryIndex].tag);
-            console.log(categories[nextCategoryIndex].tag);
         }
     }, [activePoster]);
 
@@ -46,14 +39,22 @@ function SlideShow({ categories, posters }) {
             <div className="hero">
                 {posters[posterCategory].map((poster, index) => (
                     <div key={index} className={activePoster === index ? "hero-item" : "hide"}>
+                        <div className="hero-wrapper">
+
                         <div className="hero-gradient"></div>
                         <img
                             src={"https://image.tmdb.org/t/p/original/" + poster.backdrop_path}
                             className="hero-img"
-                        />
+                            />
+                            </div>
                         <div className="content">
-                            <h1 className="title">{poster.title}</h1>
-                            <p className="description">{poster.overview}</p>
+                            <h1 className="title">{poster.title ? poster.title : poster.name}</h1>
+                            <p className="description">
+                                {poster.overview.substr(0, 200)}
+                                {poster.overview.substr(0, 200) !== poster.overview
+                                    ? "..."
+                                    : null}{" "}
+                            </p>
                         </div>
                     </div>
                 ))}
@@ -64,7 +65,10 @@ function SlideShow({ categories, posters }) {
                         {categories.map((category, index) => (
                             <li
                                 key={index}
-                                onClick={() => setPosterCategory(category.tag)}
+                                onClick={() => {
+                                    setPosterCategory(category.tag);
+                                    setActivePoster(0);
+                                }}
                                 className={category.tag === posterCategory ? "active-heading" : ""}
                             >
                                 {category.name}

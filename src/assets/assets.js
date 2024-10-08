@@ -15,6 +15,7 @@ import profileImg from "./profile_img.png";
 import searchIcon from "./search_icon.svg";
 import twitterIcon from "./twitter_icon.png";
 import youtubeIcon from "./youtube_icon.png";
+import menuIcon from "./menu.png";
 
 // Create the assets object
 const assets = {
@@ -35,6 +36,7 @@ const assets = {
     searchIcon,
     twitterIcon,
     youtubeIcon,
+    menuIcon,
 };
 
 // Export the assets object

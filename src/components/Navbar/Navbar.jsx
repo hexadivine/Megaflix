@@ -7,6 +7,9 @@ function Navbar() {
     return (
         <nav>
             <ul className="nav-left">
+                <li className="menu">
+                    <img src={assets.menuIcon} alt="" />
+                </li>
                 <li className="nav-list logo">
                     <img src={assets.logo} alt="" className="logo-icon" />
                 </li>

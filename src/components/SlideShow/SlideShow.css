@@ -63,7 +63,7 @@
 .thumbnail-heading ul {
     overflow: scroll;
     height: 23rem;
-    width: 30rem;
+    width: fit-content;
     scrollbar-width: none;
 }
 
@@ -75,7 +75,6 @@
     list-style: none;
     cursor: pointer;
     color: #aaaaaaaa;
-    text-align: center;
     /* background: #ff0000; */
 }
 
@@ -156,6 +155,22 @@
         position: relative;
         top: 0;
         transform: rotate(0);
+    }
+
+}
+
+@media (max-width:1000px) {
+
+    .hero-wrapper {
+        filter: blur(1px)
+    }
+
+}
+
+@media (max-width:600px) {
+
+    .hero-wrapper {
+        filter: blur(20px)
     }
 
 }
