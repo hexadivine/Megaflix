@@ -6,6 +6,7 @@ function SlideShow({ categories, posters }) {
     const [posterCategory, setPosterCategory] = useState(categories[0].tag);
 
     const thumbnailRef = useRef(null);
+    const thumbnailRefMobile = useRef(null);
     const prevPosterCategory = useRef(null);
 
     useEffect(() => {
@@ -21,7 +22,8 @@ function SlideShow({ categories, posters }) {
     }, []);
 
     useEffect(() => {
-        thumbnailRef.current.scrollLeft = 160 * activePoster;
+        if (window.innerWidth > 600) thumbnailRef.current.scrollLeft = 160 * activePoster;
+        else thumbnailRefMobile.current.scrollLeft = 160 * activePoster;
 
         if (activePoster >= posters[posterCategory].length - 1)
             prevPosterCategory.current = posterCategory;
@@ -40,13 +42,12 @@ function SlideShow({ categories, posters }) {
                 {posters[posterCategory].map((poster, index) => (
                     <div key={index} className={activePoster === index ? "hero-item" : "hide"}>
                         <div className="hero-wrapper">
-
-                        <div className="hero-gradient"></div>
-                        <img
-                            src={"https://image.tmdb.org/t/p/original/" + poster.backdrop_path}
-                            className="hero-img"
+                            <div className="hero-gradient"></div>
+                            <img
+                                src={"https://image.tmdb.org/t/p/original/" + poster.backdrop_path}
+                                className="hero-img"
                             />
-                            </div>
+                        </div>
                         <div className="content">
                             <h1 className="title">{poster.title ? poster.title : poster.name}</h1>
                             <p className="description">
@@ -59,34 +60,40 @@ function SlideShow({ categories, posters }) {
                     </div>
                 ))}
             </div>
-            <div className="thumbnail">
-                <h1 className="thumbnail-heading">
-                    <ul className="thumbnail-heading-list">
-                        {categories.map((category, index) => (
-                            <li
+            <div className="thumbnail-container">
+                <div className="thumbnail" ref={thumbnailRefMobile}>
+                    <h1 className="thumbnail-heading">
+                        <ul className="thumbnail-heading-list">
+                            {categories.map((category, index) => (
+                                <li
+                                    key={index}
+                                    onClick={() => {
+                                        setPosterCategory(category.tag);
+                                        setActivePoster(0);
+                                    }}
+                                    className={
+                                        category.tag === posterCategory ? "active-heading" : ""
+                                    }
+                                >
+                                    {category.name}
+                                </li>
+                            ))}
+                        </ul>
+                    </h1>
+                    <div className="thumbnail-images" ref={thumbnailRef}>
+                        {posters[posterCategory].map((poster, index) => (
+                            <img
+                                src={"https://image.tmdb.org/t/p/original" + poster.poster_path}
                                 key={index}
-                                onClick={() => {
-                                    setPosterCategory(category.tag);
-                                    setActivePoster(0);
-                                }}
-                                className={category.tag === posterCategory ? "active-heading" : ""}
-                            >
-                                {category.name}
-                            </li>
+                                onClick={() => setActivePoster(index)}
+                                className={
+                                    activePoster == index
+                                        ? "active-thumbnail"
+                                        : "inactive-thumbnail"
+                                }
+                            />
                         ))}
-                    </ul>
-                </h1>
-                <div className="thumbnail-images" ref={thumbnailRef}>
-                    {posters[posterCategory].map((poster, index) => (
-                        <img
-                            src={"https://image.tmdb.org/t/p/original" + poster.poster_path}
-                            key={index}
-                            onClick={() => setActivePoster(index)}
-                            className={
-                                activePoster == index ? "active-thumbnail" : "inactive-thumbnail"
-                            }
-                        />
-                    ))}
+                    </div>
                 </div>
             </div>
         </div>

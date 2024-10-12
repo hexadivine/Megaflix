@@ -15,17 +15,18 @@ nav .nav-right {
     color: #cccccccc;
 }
 
-nav ul:first-child {
+.nav-left {
     margin-left: 6rem;
 }
 
-nav ul:last-child {
+.nav-right {
     margin-right: 6rem;
 }
 
-nav ul:last-child li:last-child {
+.nav-right li:last-child {
     display: flex;
-    gap: 0.5rem
+    gap: 0.5rem;
+    align-items: start;
 }
 
 nav li {
@@ -33,6 +34,7 @@ nav li {
     font-size: 1.3rem;
     cursor: pointer;
     font-weight: 500;
+    color: #cccccccc;
 }
 
 nav li:hover {
@@ -56,8 +58,55 @@ nav .logo-icon {
     display: none;
 }
 
+.caret-icon {
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+}
+
 .menu {
     display: none;
+}
+
+.browse-by-genre {
+    /* overflow: hidden; */
+    /* padding: 0 2rem; */
+    /* margin: 0 2rem; */
+    overflow: hidden;
+}
+
+.dropdown-genre-list {
+    position: absolute;
+    background-color: red;
+
+    top: 5.5rem;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    /* padding: 1rem; */
+    gap: 1rem;
+    z-index: 99;
+    justify-content: center;
+    text-wrap: nowrap;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    /* margin: 0 2rem; */
+    /* background-color: red; */
+}
+
+.dropdown-genre-list::-webkit-scrollbar {
+    display: none;
+}
+
+.dropdown-genre-list li {
+    /* padding: 0.5rem 1rem; */
+    padding: 0.5rem;
+    background-color: gray;
+    border-radius: 1rem;
+}
+
+
+.active {
+    color: white
 }
 
 @media (max-width: 1000px) {
@@ -70,9 +119,6 @@ nav .logo-icon {
         display: block;
     }
 
-    .nav-left .browse img {
-        margin-left: 1rem;
-    }
 
     .browse {
         position: relative;
@@ -84,9 +130,9 @@ nav .logo-icon {
         top: 2rem;
     }
 
-    .browse:hover > .dropdown {
+    .browse:hover>.dropdown {
         display: block !important;
-    } 
+    }
 
 }
 

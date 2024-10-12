@@ -38,7 +38,6 @@ function Movies() {
 
     return (
         <div className="movies">
-            <Navbar />
             {Object.keys(movies).length === categories.length ? (
                 <SlideShow categories={categories} posters={movies} />
             ) : null}

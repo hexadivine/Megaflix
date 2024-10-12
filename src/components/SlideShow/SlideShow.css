@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Foldit:wght@100..900&family=Pixelify+Sans:wght@400..700&display=swap');
+
 .slideshow {
     width: 100vw;
     height: 100vh;
-    margin-top: -5rem;
+    margin-top: -50px;
     position: relative;
     overflow: hidden;
 }
@@ -34,11 +36,20 @@
 
 .hero .content {
     position: absolute;
-    top: 40%;
+    top: 30%;
     transform: translateY(-50%);
-    left: 6rem;
+    left: 4rem;
     z-index: 99;
     max-width: 55rem;
+    padding: 2rem;
+}
+
+.title {
+    font-family: 'Pixelify Sans';
+}
+
+.thumbnail-container {
+    padding: 5rem 0;
 }
 
 .thumbnail {
@@ -47,6 +58,7 @@
     position: absolute;
     bottom: 1rem;
     width: 100%;
+ 
     /* background-color: green; */
     /* background-color: red; */
 }
@@ -60,9 +72,9 @@
     margin-right: 10%;
 }
 
-.thumbnail-heading ul {
+.thumbnail-heading-list {
     overflow: scroll;
-    height: 23rem;
+    height: 230px;
     width: fit-content;
     scrollbar-width: none;
 }
@@ -99,11 +111,11 @@
 
 .thumbnail-images {
     overflow: auto;
-    gap: 1rem;
-    height: 33rem;
+    gap: 10px;
+    height: 330px;
     scroll-behavior: smooth;
-    font-size: 5rem;
     scrollbar-width: none;
+    padding-right: 6rem;
 }
 
 .thumbnail-images::-webkit-scrollbar {
@@ -111,10 +123,10 @@
 }
 
 .thumbnail-images img {
-    width: 15rem;
-    height: 23rem;
+    width: 150px;
+    height: 230px;
     flex-grow: 0;
-    border-radius: 1rem;
+    border-radius: 10px;
     cursor: pointer;
 }
 
@@ -135,7 +147,7 @@
 
     to {
         position: relative;
-        top: -10rem;
+        top: -100px;
         transform: rotateY(-360deg);
     }
 }
@@ -147,7 +159,7 @@
 @keyframes inactivate-thumbnail {
     from {
         position: relative;
-        top: -10rem;
+        top: -100px;
         transform: rotateY(-360deg);
     }
 
@@ -162,8 +174,12 @@
 @media (max-width:1000px) {
 
     .hero-wrapper {
-        filter: blur(1px)
+        filter: blur(10px)
     }
+
+    /* .content {
+        font-size: 90%;
+    } */
 
 }
 
@@ -171,6 +187,24 @@
 
     .hero-wrapper {
         filter: blur(20px)
+    }
+
+    .content {
+        font-size: 80%;
+        max-width: 35rem;
+    }
+
+    .thumbnail {
+    overflow: auto;
+    scrollbar-width: none;
+    }
+
+    .thumbnail-images {
+        overflow: initial;
+    }
+
+    .thumbnail::-webkit-scrollbar {
+        width: 0;
     }
 
 }

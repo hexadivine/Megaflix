@@ -38,7 +38,6 @@ function TvShows() {
 
     return (
         <div className="tv-shows">
-            <Navbar />
             {Object.keys(tvSeries).length === categories.length ? (
                 <SlideShow categories={categories} posters={tvSeries} />
             ) : null}
